@@ -33,4 +33,32 @@ To use linter:
 - add eslint plugin to your favorite editor
 
 How to use this module in app:
--
+- add it as a dependency in package.json (replace v1.0.3 with required tag):
+```
+"@buzzn/module_auth": "git+https://github.com/buzzn/module-auth.git#v1.0.3"
+```
+- add PowerForm reducers to app reducers:
+```
+import { combineReducers } from 'redux';
+import PowerForm from '@buzzn/module_powertaker_form';
+
+export default combineReducers({
+  [PowerForm.constants.MOUNT_POINT]: PowerForm.reducers,
+});
+```
+- run Auth saga in saga middleware:
+```
+import PowerForm from '@buzzn/module_powertaker_form';
+import appSaga from './sagas';
+
+function* rootSaga() {
+  yield [call(PowerForm.sagas), call(appSaga)];
+}
+// ...
+// store configuration
+  sagaMiddleware.run(rootSaga);
+// ...
+```
+- dispatch PowerForm.actions.startForm({ apiUrl, apiPath, token }) and PowerForm.actions.cleanState() to start/clean the form
+- add PowerForm react component to UI: PowerForm.container
+- as of 06.12.2016 this module is only working with proper token. @buzzn/module_auth can be used to get one.
