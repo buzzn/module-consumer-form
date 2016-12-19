@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { FormattedMessage } from 'react-intl';
 import InputField from './input_field';
 import SelectField from './select_field';
 import constants from '../constants';
@@ -12,11 +13,26 @@ const PowerFormPreCheck = props => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>Wo liegt Deine Bezugsstelle?</label>
+        <label>
+          <FormattedMessage
+            id="powertakerForm.pre.zip"
+            description="Location input label in pre form"
+            defaultMessage="Where is your reference point?" />
+        </label>
         <Field name="zip" type="text" component={InputField} />
-        <label>Wieviel Strom wirst Du verbrauchen?</label>
+        <label>
+          <FormattedMessage
+            id="powertakerForm.pre.kwh"
+            description="Expected usage in pre form"
+            defaultMessage="How much electricity will you consume?" />
+        </label>
         <Field name="yearlyKilowattHour" type="text" component={InputField} />
-        <label>Welchen Zählertyp hast Du?</label>
+        <label>
+          <FormattedMessage
+            id="powertakerForm.pre.type"
+            description="Metering type in pre form"
+            defaultMessage="What counter type do you have?" />
+        </label>
         <Field
           name="meteringType"
           component={SelectField}
@@ -57,7 +73,7 @@ const PowerFormPreCheck = props => {
 
 function validate(values) {
   return Object.assign({},
-    validateRequired({ values, fields: ['zip', 'kwh', 'tarifType'] })
+    validateRequired({ values, fields: ['zip', 'kwh', 'tarifType'] }),
   );
 }
 
