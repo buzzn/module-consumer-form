@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import PowerFormPreCheck from './power_form_pre_check';
 import PowerForm from './power_form';
 import constants from '../constants';
@@ -10,7 +11,18 @@ const PowerFormContainer = (props) => {
 
   if (!token) return (<div></div>);
 
-  if (success) return (<div className="alert alert-success" role="alert"><strong>Form complete</strong></div>);
+  if (success) {
+    return (
+      <div className="alert alert-success" role="alert">
+        <strong>
+          <FormattedMessage
+            id="powertakerForm.complete"
+            description="Form success message"
+            defaultMessage="Form complete" />
+        </strong>
+      </div>
+    );
+  }
 
   return (
     <div>
